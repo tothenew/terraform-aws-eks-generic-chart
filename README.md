@@ -1,16 +1,23 @@
-# terraform-aws-template
+# terraform-aws-eks-generic-chart
 
 [![Lint Status](https://github.com/tothenew/terraform-aws-template/workflows/Lint/badge.svg)](https://github.com/tothenew/terraform-aws-template/actions)
 [![LICENSE](https://img.shields.io/github/license/tothenew/terraform-aws-template)](https://github.com/tothenew/terraform-aws-template/blob/master/LICENSE)
 
-This is a template to use for baseline. The default actions will provide updates for section bitween Requirements and Outputs.
+Terraform module for deploying a generic chart inside Kubernetes cluster.
 
-The following content needed to be created and managed:
- - Introduction
-     - Explaination of module 
-     - Intended users
- - Resource created and managed by this module
- - Example Usages
+```
+module "generic_chart" {
+  source = "git::https://github.com/tothenew/terraform-aws-eks-generic-chart.git"
+
+  helm_chart_name         = ""
+  helm_chart_release_name = ""
+  helm_chart_version      = ""
+  helm_chart_repo         = ""
+  namespace               = ""
+
+  settings = {}
+}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
