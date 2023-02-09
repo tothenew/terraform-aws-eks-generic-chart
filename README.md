@@ -1,16 +1,23 @@
-# terraform-aws-template
+# terraform-aws-eks-generic-chart
 
 [![Lint Status](https://github.com/tothenew/terraform-aws-template/workflows/Lint/badge.svg)](https://github.com/tothenew/terraform-aws-template/actions)
 [![LICENSE](https://img.shields.io/github/license/tothenew/terraform-aws-template)](https://github.com/tothenew/terraform-aws-template/blob/master/LICENSE)
 
-This is a template to use for baseline. The default actions will provide updates for section bitween Requirements and Outputs.
+Terraform module for deploying a generic chart inside Kubernetes cluster.
 
-The following content needed to be created and managed:
- - Introduction
-     - Explaination of module 
-     - Intended users
- - Resource created and managed by this module
- - Example Usages
+```
+module "generic_chart" {
+  source = "git::https://github.com/tothenew/terraform-aws-eks-generic-chart.git"
+
+  helm_chart_name         = ""
+  helm_chart_release_name = ""
+  helm_chart_version      = ""
+  helm_chart_repo         = ""
+  namespace               = ""
+
+  settings = {}
+}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -21,7 +28,10 @@ The following content needed to be created and managed:
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules
 
@@ -29,11 +39,23 @@ No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [helm_release.generic](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_namespace.generic](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Whether to create Kubernetes namespace with name defined by `namespace`. | `bool` | `true` | no |
+| <a name="input_helm_chart_name"></a> [helm\_chart\_name](#input\_helm\_chart\_name) | Generic Helm chart name to be installed. | `string` | n/a | yes |
+| <a name="input_helm_chart_release_name"></a> [helm\_chart\_release\_name](#input\_helm\_chart\_release\_name) | Helm release name. | `string` | n/a | yes |
+| <a name="input_helm_chart_repo"></a> [helm\_chart\_repo](#input\_helm\_chart\_repo) | Generic repository name. | `string` | n/a | yes |
+| <a name="input_helm_chart_version"></a> [helm\_chart\_version](#input\_helm\_chart\_version) | Generic Helm chart version. | `string` | n/a | yes |
+| <a name="input_mod_dependency"></a> [mod\_dependency](#input\_mod\_dependency) | Dependence variable binds all AWS resources allocated by this module, dependent modules reference this variable. | `any` | `null` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Kubernetes namespace to deploy Generic Helm chart. | `string` | `"kube-system"` | no |
+| <a name="input_settings"></a> [settings](#input\_settings) | Additional settings which will be passed to the Helm chart values. | `map` | `{}` | no |
 
 ## Outputs
 
